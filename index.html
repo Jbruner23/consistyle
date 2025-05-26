@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IlluSign: Illustrating Sign Language Videos</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <!-- Stylesheets -->
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <!-- Scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+    var lazyVideos = [].slice.call(document.querySelectorAll("video.lazy"));
+    var sources = document.querySelectorAll('source');
+
+    if ("IntersectionObserver" in window) {
+      var lazyVideoObserver = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(function(video) {
+          if (video.isIntersecting) {
+            for (var source in video.target.children) {
+              var videoSource = video.target.children[source];
+              if (typeof videoSource.tagName === "string" && videoSource.tagName === "SOURCE") {
+                videoSource.src = videoSource.dataset.src;
+              }
+            }
+
+            video.target.load();
+            video.target.classList.remove("lazy");
+            lazyVideoObserver.unobserve(video.target);
+          }
+        });
+      });
+
+      lazyVideos.forEach(function(lazyVideo) {
+        lazyVideoObserver.observe(lazyVideo);
+      });
+    }
+  });
+  </script>
+
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scrollable Table with Arrow Buttons</title>
+  <style>
+    .full-width-container {
+      width: 100vw;  /* Ensure it covers the full viewport width */
+      margin-left: calc(-50vw + 50%);  /* Shift left to align with viewport */
+      text-align: center;
+    }
+    /* .responsive-img {
+    width: 100vw;
+    max-width: 1200px;
+    height: auto;
+    display: block;
+    margin: 0 auto 2rem auto;
+    margin-bottom: 2rem;
+    margin-left: calc(-50vw + 50%);
+    text-align: center;
+    } */
+
+    .responsive-img {
+      width: 90vw;
+      max-width: 1200px;
+      height: auto;
+      display: block;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-bottom: 2rem;
+    }
+    /* .responsive-img { */
+    /* width: 80vw;  Always 80% of viewport width */
+    /* max-width: 1400px;  Prevents it from exceeding original size */
+    /* height: auto;  Maintains aspect ratio */
+    /* display: block; */
+    /* margin: 0 auto;  Center horizontally */
+    
+    .responsive-container {
+      max-width: 1200px;
+      margin: 0 auto 2rem auto;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .page-container {
+      width: 1200px;
+      min-height: 1000px;
+      margin: 0 auto;
+      text-align: left;
+      padding-top: 5em;
+      padding-left: 1em;
+      padding-right: 1em;
+      padding-bottom: 1em;
+      height: auto;
+    }
+
+    .scrollable-table-container {
+      display: flex;
+      align-items: center;
+    }
+
+    #scrollableTableWrapper {
+      overflow-x: auto;
+      overflow-y: hidden;
+      white-space: nowrap;
+    }
+
+    table {
+      border-collapse: collapse;
+      margin: auto;
+      display: table;
+      border-collapse: separate;
+      box-sizing: border-box;
+      text-indent: initial;
+      line-height: normal;
+      font-weight: normal;
+      font-size: medium;
+      font-style: normal;
+      color: -internal-quirk-inherit;
+      text-align: start;
+      border-spacing: 2px;
+      border-color: gray;
+      white-space: normal;
+      font-variant: normal;
+    }
+
+    .last-updated {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 10px;
+      color: black;
+      /* text color */
+      font-size: 1.0em;
+      z-index: 1000;
+      /* ensures it's on top of other elements */
+    }
+
+    .container-1 {
+      height:750px;
+    }
+
+    .container-2{
+      height:550px;
+
+    }
+
+    .video-container-character {
+      position: relative;
+      overflow: hidden;
+      margin-left: auto;
+      margin-right: auto;
+      height: 100%;
+      padding: 0;
+    }
+
+    .video-container-stylizaton {
+      position: relative;
+      overflow: hidden;
+      margin-left: auto;
+      margin-right: auto;
+      height: 100%;
+      padding: 0;
+    }
+
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+      content: '';
+    }
+
+    .video-container-character .swiper-button-next,
+    .video-container-character .swiper-button-prev {
+      top: 23rem;
+      outline: none;
+    }
+
+    .video-container-stylizaton .swiper-button-next,
+    .video-container-stylizaton .swiper-button-prev {
+      top: 15rem;
+      outline: none;
+    }
+
+    .swiper-icon {
+      font-size: 4rem;
+      color: black;
+    }
+
+    .video-size {
+    height: 335px;
+    }
+    .video-size-2 {
+    height: 250px;
+    }
+
+    /* .responsive-img { */
+    /* width: 80vw;  Always 80% of viewport width */
+    /* max-width: 1400px;  Prevents it from exceeding original size */
+    /* height: auto;  Maintains aspect ratio */
+    /* display: block; */
+    /* margin: 0 auto;  Center horizontally */
+/* } */
+
+.full-width-container {
+    width: 100vw;  /* Ensure it covers the full viewport width */
+    margin-left: calc(-50vw + 50%);  /* Shift left to align with viewport */
+    text-align: center;
+}
+
+
+
+    .video-container-four {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 columns */
+            gap: calc(0.5%); /* Space between videos */
+            max-width: 1100px; /* Adjust to your preferred width */
+            margin: 0 auto; /* Center align the grid */
+        }
+        .video-item-four {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .video-title-four {
+            margin-bottom: 0px; /* Space between title and video */
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .video-container-five {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 5 columns */
+            gap: calc(0.5%); /* Space between videos */
+            max-width: 1400px; /* Adjust to your preferred width */
+            margin: 0 auto; /* Center align the grid */
+        }
+
+        /* carouseal with 3 items and 3 rows */
+
+        .results-carousel-3x3 {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0px;
+        padding: 0;
+        margin: 0 auto;
+        justify-content: center;
+        width: 70vw; /* 80% of viewport width */
+        max-width: 800px;
+        background-color: var(--main-bg-color);
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    .carousel-item-3x3 {
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+        width: 100%;
+        background-color: var(--main-bg-color) !important;
+    }
+
+    .carousel-row-3x3 {
+        display: flex;
+        /* justify-content: space-between; */
+        margin-bottom: 17px;
+        gap: 0px;
+        width: 100%;
+    }
+
+    .video-item-3x3 {
+        width: calc(33%); /* Maintain exactly one-third width minus gap */
+        box-sizing: border-box;
+    }
+
+    .video-item-3x3 video,
+    .video-item-3x3 img {
+      width: 100%;
+      display: block;
+      margin: 0;
+    }
+
+.text-container {
+    width: 70vw !important; /* 70% of viewport width */
+    margin: 0 auto !important; /* Center the container */
+    max-width: 1200px !important; /* Optional: maximum width on very large screens */
+    box-sizing: border-box !important; /* Makes sure padding is included in width calculation */
+    text-align: left !important;
+}
+
+/* Optional: adjust width and padding for smaller screens */
+@media screen and (max-width: 768px) {
+    .text-container {
+        width: 85vw !important; /* Slightly wider on mobile for better readability */
+        padding: 15px !important;
+        text-align: left !important;
+    }
+}
+
+/* Adjust video size for different screen sizes */
+@media screen and (max-width: 768px) {
+    .teaser-container {
+        width: 90vw; /* Slightly wider on mobile for better visibility */
+    }
+}
+
+    @media screen and (max-width: 480px) {
+        .video-title-3x3 {
+            font-size: clamp(8px, 1.2vw, 14px); /* Smaller minimum size, reduced scaling rate */
+            margin-top: 0px;
+            margin: 0px;
+            /* -webkit-line-clamp: 2;
+            line-clamp: 2;
+            max-height: 1.2em; */
+        }
+
+        .results-carousel-3x3 {
+            width: 90vw;
+            gap: 0px;
+        }
+        
+        .carousel-item-3x3,
+        .carousel-row-3x3 {
+            gap: 0px;
+        }
+        
+        .video-item-3x3 {
+            width: calc(33%); /* Adjust for smaller gap */
+        }
+    }
+
+            /* qulitative comparison css */
+
+            /* Container that holds the row of videos */
+            .new-row-container {
+            display: flex;
+            justify-content: space-between; /* Evenly space out the videos */
+            gap: 10px; /* Space between the videos */
+            flex-wrap: nowrap; /* Prevent wrapping of items */
+            padding: 0px 0;
+            width: 100%;
+            max-width: 100%; /* Ensure the container takes up the full width */
+            margin: 0 auto; /* Center the container */
+            overflow: hidden; /* Ensure any excess content is clipped */
+            }
+
+
+
+            /* Title above the video */
+            .new-text-prompt {
+            font-size: 20px; /* Size of the title text */
+            color: #333; /* Dark color for the text */
+            }
+
+            /* Title above the video */
+            .new-text-prompt-bold {
+            font-size: 20px; /* Size of the title text */
+            font-weight: bold;
+            color: #02376c; /* Dark color for the text */
+            }
+
+            /* Make the video fill the width of its container */
+            .new-video-item video {
+            width: 100%; /* Make the video take the full width of the item */
+            display: block;
+            border: none; /* No border around the video */
+            outline: none; /* Remove focus outline */
+            height: auto; /* Maintain video aspect ratio */
+            }
+
+            /* Optional: style for the prompt below the video */
+            /* .new-video-item .new-text-prompt:last-child {
+            font-size: 20px;
+            font-weight: normal;
+            color: #666; /* Lighter color for the prompt } */
+
+            /* Responsive design: Stack the videos vertically on smaller screens */
+            @media (max-width: 768px) {
+            .new-video-item {
+                flex: 1 1 100%; /* Stack videos on smaller screens */
+                width: 100%; /* Full width on smaller devices */
+            }
+
+            .new-video-item:hover {
+                transform: none; /* Remove scale effect on hover */
+            }
+
+                    /* Title above the video */
+        .new-text-prompt {
+            font-size: clamp(8px, 1.2vw, 14px); /* Smaller minimum size, reduced scaling rate */
+            color: #333; /* Dark color for the text */
+            }
+
+            .new-text-prompt-bold {
+            font-size: clamp(8px, 1.2vw, 14px); /* Smaller minimum size, reduced scaling rate */
+            font-weight: bold;
+            color: #02376c; /* Dark color for the text */
+            }
+            }
+
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">IlluSign: Illustrating Sign Language Videos by Leveraging the Attention Mechanism</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><a href="">Yohai Mazuz</a>
+              <span class="author-block"><a href="https://www.linkedin.com/in/janna-bruner-55289714b">Janna Bruner</a>
+              <span class="author-block"><a href="https://www.cs.tau.ac.il/~wolf/">Lior Wolf</a>
+            </div>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"></sup>Tel Aviv University</span>
+            </div>
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="ai ai-arxiv"></i></span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="#" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fab fa-github"></i></span>
+                    <span>Coming Soon!</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+
+
+</section>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <!-- <h2 class="title is-3">Generalization to other styles</h2> -->
+        <div class="content has-text-justified">
+          <div class="responsive-container">
+            <img src="./static/images/cover_v6.pdf" class="responsive-img"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="section hero is-small">
+  <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+      </div>
+    </div>
+  <table width="100%" align="center">
+    <tbody>
+        <div id="results-carousel" class="carousel results-carousel-3x3">
+        
+        Carousel Item 1 (3 rows of 3 videos)
+        <div class="carousel-item carousel-item-3x3">
+            Row 1: 3 videos
+            <div class="carousel-row-3x3">
+                <div class="video-item video-item-3x3">
+                  <video autoplay loop muted playsinline><source src="./static/videos/balkan.mp4" type="video/mp4"></video>
+                  <img src="./static/illustrations/spline_balkan.png">
+                </div>
+                <div class="video-item video-item-3x3">
+                  <video autoplay loop muted playsinline><source src="./static/videos/bank.mp4" type="video/mp4"></video>
+                  <img src="./static/illustrations/spline_bank.png">
+                </div>
+                <div class="video-item video-item-3x3">
+                  <video autoplay loop muted playsinline><source src="./static/videos/mensch.mp4" type="video/mp4"></video>
+                  <img src="./static/illustrations/spline_mensch.png">
+                </div>
+              </div>
+            </div>
+        Carousel Item 2 (3 rows of 3 videos)
+        <div class="carousel-item carousel-item-3x3">    
+            Row 1: 3 videos
+            <div class="carousel-row-3x3">
+                <div class="video-item video-item-3x3">
+                  <video autoplay loop muted playsinline><source src="./static/videos/einsam.mp4" type="video/mp4"></video>
+                  <img src="./static/illustrations/spline_einsam.png">
+                </div>
+                <div class="video-item video-item-3x3">
+                  <video autoplay loop muted playsinline><source src="./static/videos/gurke.mp4" type="video/mp4"></video>
+                  <img src="./static/illustrations/spline_gurke.png">
+                </div>
+                <div class="video-item video-item-3x3">
+                  <video autoplay loop muted playsinline><source src="./static/videos/heraus.mp4" type="video/mp4"></video>
+                  <img src="./static/illustrations/spline_heraus.png">
+                </div>
+              </div>
+            </div>
+        Carousel Item 3 (3 rows of 3 videos) 
+        <div class="carousel-item carousel-item-3x3">
+          Row 1: 3 videos
+          <div class="carousel-row-3x3">
+              <div class="video-item video-item-3x3">
+                <video autoplay loop muted playsinline><source src="./static/videos/party.mp4" type="video/mp4"></video>
+                <img src="./static/illustrations/spline_party.png">
+              </div>
+              <div class="video-item video-item-3x3">
+                <video autoplay loop muted playsinline><source src="./static/videos/berlin.mp4" type="video/mp4"></video>
+                <img src="./static/illustrations/spline_berlin.png">
+              </div>
+              <div class="video-item video-item-3x3">
+                <video autoplay loop muted playsinline><source src="./static/videos/bonn.mp4" type="video/mp4"></video>
+                <img src="./static/illustrations/spline_bonn.png">
+              </div>
+           </div>
+        </div>
+    </div>
+  </tbody>
+</table>
+
+</section>
+
+  <script>
+    bulmaCarousel.attach('#results-carousel', {
+      slidesToScroll: 1,
+      slidesToShow: 1,
+      loop: true
+    });
+  </script> -->
+
+
+  
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+
+          In text-to-image models, consistent character generation is the task of achieving text alignment while maintaining the subject's appearance across different prompts. 
+          However, since style and appearance are often entangled, the existing methods struggle to preserve consistent subject characteristics while adhering to varying style prompts.
+          Current approaches for consistent text-to-image generation typically rely on large-scale fine-tuning on curated image sets or per-subject optimization, which either fail to generalize across prompts or do not align well with textual descriptions. 
+          Meanwhile, training-free methods often fail to maintain subject consistency across different styles. 
+          In this work, we introduce a training-free method that achieves both style alignment and subject consistency. 
+          The attention matrices are manipulated such that Queries and Keys are obtained from the anchor image(s) that are used to define the subject, while the Values are imported from a parallel copy that is not subject-anchored.
+          Additionally, cross-image components are added to the self-attention mechanism by expanding the Key and Value matrices. To do without shifting from the target style, we align the statistics of the Value matrices.
+          As is demonstrated in a comprehensive battery of qualitative and quantitative experiments, our method effectively decouples style from subject appearance and enables faithful generation of text-aligned images with consistent characters across diverse styles. 
+
+          </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Results</h2>
+        <div class="content has-text-justified">
+          <div class="responsive-container">
+            <img src="./static/images/stages.png" class="responsive-img"/>
+          </div>
+          <p>
+
+            Our pipeline transforms video frames into a unified illustration by first converting two input frames into the target illustration style, then overlaying them and adding directional arrows to indicate motion.
+            The rightmost column shows the ground truth illustration, included only for visual comparison as it is not used in our method.
+
+          </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ -->
+<!-- <section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">How does it work?</h2>
+        <div class="content has-text-justified">
+          <div class="responsive-container">
+            <img src="./static/images/method.png" class="responsive-img"/>
+          </div>
+          <p>
+
+            Our method consists of two main stages. (1) The process begins by inverting images to latent noise and starting the diffusion process from the edges image noise. 
+            In the final resolution attention layers, style image features are injected using Keys and Values, while Queries blend features from both the image and edges.
+            (2) A second diffusion stage fuses features from the start and end images, using start image noise for initialization.
+            Finally, hand masks and unsimilar features between the Queries are injected into the the final Queries to enhance hand appearance and enable soft image blending.
+            
+          </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+<!-- <section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Qualitative Comparison</h2>
+        <div class="content has-text-justified">
+          <div class="responsive-container">
+            <img src="./static/images/comparison.png" class="responsive-img"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- 
+</section>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Generalization to other styles</h2>
+        <div class="content has-text-justified">
+          <div class="responsive-container">
+            <img src="./static/images/styles.png" class="responsive-img"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- 
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@INPROCEEDINGS{bruner2025illusign,
+  author    = {Janna Bruner and Amit Moryossef and Lior Wolf},
+  title     = {IlluSign: Illustrating Sign Language Videos by Leveraging the Attention Mechanism},
+  booktitle = {2025 IEEE 19th International Conference on Automatic Face and Gesture Recognition (FG)}, 
+  year      = {2025}
+}</code></pre>
+  </div>
+</section>  -->
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Website source code based on the <a href="https://nerfies.github.io/">Nerfies</a> project page. If you want to reuse their <a
+            href="https://github.com/nerfies/nerfies.github.io">source code</a>, please credit them appropriately.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
