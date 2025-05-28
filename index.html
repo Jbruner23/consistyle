@@ -431,7 +431,7 @@
           <div class="column has-text-centered">
             <h1 class="title is-1 publication-title">ConsiStyle: Style Diversity in Training-Free Consistent T2I Generation</h1>
             <div class="is-size-5 publication-authors">
-              <span class="author-block"><a href="">Yohai Mazuz,     </a>
+              <span class="author-block"><a href="https://www.linkedin.com/in/yohai-mazuz">Yohai Mazuz,     </a>
               <span class="author-block"><a href="https://www.linkedin.com/in/janna-bruner-55289714b">Janna Bruner,     </a>
               <span class="author-block"><a href="https://www.cs.tau.ac.il/~wolf/">Lior Wolf</a>
             </div>
@@ -561,8 +561,6 @@
   </script> -->
 
 
-  
-
 <section class="section">
   <div class="container is-max-desktop">
     <!-- Abstract. -->
@@ -584,6 +582,49 @@
           </p>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">How does it work?</h2>
+        <div class="responsive-container">
+          <img src="./static/images/how-does-it-work.jpg" class="responsive-img"/>
+        </div>
+        <div class="content has-text-justified font-size: 0.9em;">
+          <p>
+            <ul style="list-style: none; font-size: 0.9em; padding-left: 0;">
+              <li>📝 Given a list of prompts and concept tokens, ConsiStyle aims to generate diverse images that remain consistent in subject identity as defined by the concept tokens.</li>
+              <li>🎨 It first runs a vanilla SDXL pass to extract style-specific Value matrices, capturing the visual attributes (color, texture, etc.) tied to each prompt’s style.</li>
+              <li>🧠 During generation, attention crossing is enabled so that each image can access contextual signals from the others, improving subject alignment across the batch.</li>
+              <li>🧼 To prevent style contamination during attention crossing, Adaptive Instance Normalization (AdaIN) is applied to regulate the statistical properties of imported Values.</li>
+              <li>🔍 In order to obtain better consistency of fine-details, using DIFT, the method computes semantic correspondences and injects aligned Query and Key components.</li>
+              <li>💾 It also injects the previously captured Values from the vanilla SDXL run, preserving the original style appearance across all outputs.</li>
+              <li>🖼️ The final result is a set of images that are prompt-aligned, style-consistent, and visually coherent in representing the same subject—without any subject-specific training.</li>
+            </ul>            
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Qualitative Comparison</h2>
+        <div class="responsive-container">
+          <img src="./static/images/results_qualitative.jpg" class="responsive-img"/>
+        </div>
+        <p>Previous methods often fail to respect style or prompt fidelity, or they produce subjects that feel out of place due to color or texture leakage. 
+          For example, in the film noir dragon row, DB-LoRA and IP-Adapter ignore the black-and-white style entirely, and Consistory features a blue dragon. <strong>ConsiStyle</strong> preserves both style and features subject consistency.</p>
       </div>
     </div>
   </div>
